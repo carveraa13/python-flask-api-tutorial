@@ -32,14 +32,12 @@ def get_todo():
 
     todo_alls = Todo.query.all()
     result = list(map(lambda x: x.serialize(), todo_alls))
-
     return jsonify(result), 200
 
 @app.route('/todos', methods=['POST'])
 def add_todo():
 
     body = request.get_json()
-
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
     if 'label' not in body:
@@ -59,7 +57,6 @@ def remove_todo(id):
 
     db.session.delete(item)
     db.session.commit()
-
     return jsonify("Task deleted successfully."), 200
 
 # this only runs if `$ python src/main.py` is executed
